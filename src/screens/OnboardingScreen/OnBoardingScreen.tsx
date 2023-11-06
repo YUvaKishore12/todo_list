@@ -17,7 +17,7 @@ const OnBoardingScreen = () => {
         loop
       />
       <View style={styles.textContainer}>
-        <Text style={styles.planText}>Plan, manage </Text>
+        <Text style={styles.planText}>Plan , manage </Text>
         <Text style={styles.planText}>and track tasks</Text>
       </View>
       <View style={styles.buttonContainer}>

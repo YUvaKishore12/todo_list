@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
   },
   taskText: {
     fontSize: 18,
-    color: colors.mainColor,
+    color: colors.black,
+    fontFamily: 'Poppins-Medium',
   },
   StatusContainer: {
     width: 70,
