@@ -1,18 +1,17 @@
-import {Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 
 import Titlebox from '../../components/TitleBox/Titlebox';
 import styles from './homeStyles';
 import TaskBox from '../../components/TaskBox/TaskBox';
-import data from '../../constants/mockData';
 
 import useHome from './useHome';
 
 const HomeScreen = () => {
-  const {modalVisible} = useHome();
+  const {modalVisible, data} = useHome();
   console.log(modalVisible);
   return (
-    <View style={styles.mainView}>
+    <ScrollView style={styles.mainView}>
       <View>
         <Titlebox startingText={'Task '} endingText="  Manager" />
       </View>
@@ -26,19 +25,25 @@ const HomeScreen = () => {
       </View>
       <View style={styles.taskContainer}>
         <Text style={styles.taskText}>Today</Text>
-        {data.map((item, index) => (
-          <View key={index}>
-            <TaskBox taskName={item.taskName} />
-          </View>
-        ))}
+
+        {data.map((item: {time: string; Title: string; status: string}, id) =>
+          item.time === 'Today' ? (
+            <View key={id}>
+              <TaskBox taskName={item.Title} status={item.status} />
+            </View>
+          ) : null,
+        )}
+
         <Text style={styles.taskText}>Later</Text>
-        {data.map((item, index) => (
-          <View key={index}>
-            <TaskBox taskName={item.taskName} />
-          </View>
-        ))}
+        {data.map((item: {time: string; Title: string; status: string}, id) =>
+          item.time === 'Later' ? (
+            <View key={id}>
+              <TaskBox taskName={item.Title} status={item.status} />
+            </View>
+          ) : null,
+        )}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

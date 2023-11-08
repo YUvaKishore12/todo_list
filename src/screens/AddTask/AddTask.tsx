@@ -1,10 +1,19 @@
-/* eslint-disable react-native/no-inline-styles */
 import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import Titlebox from '../../components/TitleBox/Titlebox';
 import styles from '.';
+import useAddTask from './useAddTask';
 
 const AddTask = () => {
+  const {
+    title,
+    setTitle,
+    description,
+    setDescription,
+    addTask,
+    setValue,
+    setTaskTime,
+  } = useAddTask();
   return (
     <View style={styles.mainView}>
       <Titlebox startingText={'Add'} endingText={'Task  '} />
@@ -16,23 +25,34 @@ const AddTask = () => {
           placeholder="Add Title"
           placeholderTextColor={'#A99B9B'}
           style={styles.addTitle}
+          value={title}
+          onChangeText={setTitle}
         />
         <TextInput
           placeholder="Add Description"
           placeholderTextColor={'#A99B9B'}
           style={styles.addDescription}
+          value={description}
+          multiline
+          onChangeText={setDescription}
         />
       </View>
       <View style={styles.taskDetailsView}>
         <Text style={styles.taskDetails}>Priority :</Text>
         <View style={styles.priorityTypes}>
-          <TouchableOpacity style={styles.lowContainer}>
+          <TouchableOpacity
+            onPress={() => setValue('Low')}
+            style={styles.lowContainer}>
             <Text style={styles.statusText}>Low</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.mediumContainer}>
+          <TouchableOpacity
+            onPress={() => setValue('Medium')}
+            style={styles.mediumContainer}>
             <Text style={styles.statusText}>Medium</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.StatusContainer}>
+          <TouchableOpacity
+            onPress={() => setValue('Asap')}
+            style={styles.StatusContainer}>
             <Text style={styles.statusText}>Asap</Text>
           </TouchableOpacity>
         </View>
@@ -41,15 +61,19 @@ const AddTask = () => {
         <Text style={styles.taskDetails}>When :</Text>
       </View>
       <View style={styles.timeContainer}>
-        <TouchableOpacity style={styles.todayButton}>
+        <TouchableOpacity
+          onPress={() => setTaskTime('Today')}
+          style={styles.todayButton}>
           <Text style={styles.todayText}>Today</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.LaterTextButton}>
+        <TouchableOpacity
+          onPress={() => setTaskTime('Later')}
+          style={styles.LaterTextButton}>
           <Text style={styles.LaterText}>Later</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.addbuttonView}>
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity onPress={addTask} style={styles.addButton}>
           <Text style={styles.addButtonText}>Add</Text>
         </TouchableOpacity>
       </View>

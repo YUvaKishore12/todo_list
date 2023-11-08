@@ -5,9 +5,24 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 type TaskBox = {
   taskName: string;
+  status: string;
 };
 
 const TaskBox = (props: TaskBox) => {
+  const getButtonColor = (status: string) => {
+    console.log(status, 'here');
+    switch (status) {
+      case 'Medium':
+        return {backgroundColor: '#236454'};
+      case 'Low':
+        return {backgroundColor: 'green'};
+      case 'Asap':
+        return {backgroundColor: 'red'};
+      default:
+        return {backgroundColor: 'gray'};
+    }
+  };
+  const buttonStyle = getButtonColor(props.status);
   return (
     <View style={styles.mainContainer}>
       <View style={styles.taskContainer}>
@@ -20,8 +35,8 @@ const TaskBox = (props: TaskBox) => {
           />
         </TouchableOpacity>
         <Text style={styles.taskText}>{props.taskName}</Text>
-        <View style={styles.StatusContainer}>
-          <Text style={styles.statusText}>Asap</Text>
+        <View style={[styles.StatusContainer, buttonStyle]}>
+          <Text style={[styles.statusText]}>{props.status}</Text>
         </View>
       </View>
     </View>
@@ -63,7 +78,7 @@ const styles = StyleSheet.create({
   StatusContainer: {
     width: 70,
     height: 30,
-    backgroundColor: 'red',
+
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
